@@ -1,0 +1,95 @@
+*{
+  box-sizing: border-box;
+}
+html{
+background-color: #418CD8;
+}
+
+body{
+font-family: "Futura";
+line-height: 1.5em;
+}
+
+header{
+display:flex;
+justify-content: center;
+}
+
+nav{
+  display: none;
+}
+
+a:nth-child(1) img{
+  max-width: 1em;
+  margin: 0.7em;
+  margin-right: -5em;
+  cursor: pointer;
+}
+
+a img{
+  max-width: 2em;
+  margin: 0.7em;
+  margin-right: -5em;
+  cursor: pointer;
+}
+
+.logo{
+max-width: 50%;
+margin: 0.5em 2em;
+}
+
+img{
+  max-width: 70%;
+  margin: 1em 3.5em;
+}
+
+ul li{
+  list-style: none;
+  margin-left: -1em;
+  color: #002C59;
+}
+
+ol li{
+  color: #002C59;
+}
+
+h2{
+  font-size: 1.5em;
+  text-align: center;
+  color: #D81515;
+  margin-bottom: 1em;
+}
+
+h4{
+  font-size: 1.5em;
+  text-align: center;
+  color: #D81515;
+  margin-bottom: 1em;
+}
+
+footer button{
+  background: none !important;
+  margin-top: 2em;
+  border-style: none;
+  color: #D81515;
+  display: inline-block;
+}
+footer img{
+  margin-top: 1em;
+  max-width: 3em;
+  margin-left: 6em;
+  margin-bottom: 1.5em;
+  cursor: pointer;
+}
+
+ol li button{
+  background-color: #D81515;
+  border-style: none;
+  border-radius: 0.75rem;
+  font-family: "futura";
+  font-size: .9em;
+  color: #ffffff;
+  cursor: pointer;
+  margin: .2em;
+  padding: .5em;
+}

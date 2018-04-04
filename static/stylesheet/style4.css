@@ -1,0 +1,142 @@
+*{
+  box-sizing: border-box;
+}
+html{
+background-color: #002C59;
+}
+
+body{
+font-family: "Futura";
+line-height: 1.5em;
+}
+
+header{
+display:inline-block;
+}
+
+.logo{
+max-width: 65%;
+justify-content: space-between;
+margin: 0.5em 4em;
+margin-bottom: -.5em;
+}
+
+form fieldset{
+border-radius: 0.75rem;
+border-style: solid;
+border-width: thin;
+border-color: #ffffff;
+padding: 1em;
+margin: 1em;
+margin-bottom: 4em;
+display: block;
+}
+
+legend {
+  margin-top: 2em;
+  font-size: 1.5em;
+  color: #D81515;
+  text-align: center;
+}
+
+label{
+font-size: 0.8em;
+display: block;
+margin-bottom: 0;
+color: #D81515;
+}
+input {
+  display: block;
+  background-color: #002C59;
+  padding: 0.2em;
+  border-radius: .5rem;
+  border-style: solid;
+  border-color: #ffffff;
+  border-width: thin;
+  width: 100%;
+  font-family: "futura";
+  font-size: 1em;
+  color: #ffffff;
+}
+
+input[type="radio"]{
+display: block;
+margin-left: -8em;
+}
+
+input[type="checkbox"]{
+display: block;
+margin-left: -8em;
+}
+
+form fieldset button{
+background-color: #D81515;
+border-style: none;
+border-radius: 0.75rem;
+padding: 1em;
+margin: 1.5em 6em;
+margin-bottom: auto;
+font-family: "futura";
+font-size: 1em;
+color: #ffffff;
+cursor: pointer;
+}
+
+h2{
+font-family: "futura";
+color: #db0d15;
+text-align: center;
+}
+
+form button{
+background-color: #D81515;
+border-style: none;
+border-radius: 0.75rem;
+padding: 1em;
+margin: 0.5em 7em;
+max-width: 100%;
+margin-bottom: 10em;
+font-family: "futura";
+font-size: 1em;
+color: #ffffff;
+cursor: pointer;
+}
+
+h4{
+font-size: 1.3em;
+color: #D81515;
+text-align: center;
+margin: 2em;
+}
+
+section{
+margin: -.5em;
+background-color: white;
+}
+article img{
+max-width: 100%;
+max-height: 20%;
+margin-bottom: -.5em;
+}
+
+article h3{
+color: #418CD8;
+font-size: 2em;
+margin: 1em 1em;
+text-align: center;
+}
+
+footer .logo{
+margin-top: 2.5em;
+}
+
+article p{
+color: #002C59;
+margin: 1em 1em;
+text-align: center;
+}
+
+footer{
+background-color: #002C59;
+margin: -.5em;
+}

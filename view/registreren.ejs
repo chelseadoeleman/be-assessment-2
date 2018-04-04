@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name=viewport content=width=device-width,initial-scale=1>
+    <title>Registreren</title>
+    <link rel="stylesheet" href="/stylesheet/style4.css">
+  </head>
+
+  <body>
+    <header>
+      <img class="logo" src="images/logoBucketlove.png" alt="Bucketlove">
+    </header>
+    <main>
+      <form class="registeren" action="/registreren1" method="post">
+        <fieldset>
+          <legend>Registreren</legend>
+            <label for="naam">Naam (volledig)</label>
+              <input type="text" name="name" id="naam">
+              <label for="email">E-mailadres</label>
+                <input type="email" name="mail" id="email">
+                <label for="geslacht">Geslacht</label>
+                <input type="radio" name="gender" id="geslacht">Man
+                <input type="radio" name="gender" id="geslacht">Vrouw
+                <input type="radio" name="gender" id="geslacht">Genderneutraal
+              <label for="leeftijd">Geboorte datum</label>
+                <input type="date" name="age" id="leeftijd">
+              <label for="locatie">Woonplaats</label>
+                <input type="text" name="location" id="locatie">
+                <label for="ampm">Ben je een meer een ochtend of avond mens?</label>
+                  <input type="radio" name="ochtendavond" id="ampm">Ochtend
+                  <input type="radio" name="ochtendavond" id="ampm">Avond
+                <label for="opleiding">Opleiding</label>
+                  <input type="text" name="career" id="opleiding">
+                <label for="werk">Werk en functie</label>
+                  <input type="text" name="work" id="werk">
+                  <label for="bio">Ik hou van..</label>
+                    <input type="beschrijving" name="biografie" id="bio" placeholder="koffie, huisdieren, ..">
+                  <label for="bio">Geef een korte beschrijving over jezelf</label>
+                    <input type="text" name="description" id="beschrijving">
+            <button type="submit" name="button">Wordt lid</button>
+        </fieldset>
+      </form>
+    </main>
+    <footer>
+
+    </footer>
+  </body>
+</html>
