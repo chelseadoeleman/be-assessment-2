@@ -2,9 +2,9 @@
 be-assessment-2
 
 ## To Do
-• HTML templates
-• GET
-• DELETE
-• POST
-• UPDATE
+* [ ] HTML templates
+* [ ] GET
+* [ ] DELETE
+* [ ] POST
+* [ ] UPDATE
 
