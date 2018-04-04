@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Registreren</title>
     <link rel="stylesheet" href="/stylesheet/style2.css">
+    <meta name=viewport content=width=device-width,initial-scale=1>
   </head>
   <body>
     <header>
@@ -28,7 +29,7 @@
       <h2>Matches</h2>
       <% if (typeof data !== undefined && data.length !== 0) { %>
       <section>
-      <% data.forEach (function (match,index) { %>
+      <% data && data.forEach (function (match,index) { %>
         <article>
           <img src="images/nr1.png" alt="nr1">
           <h4><%= match.name %></h4>

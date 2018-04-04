@@ -25,32 +25,32 @@
         <img class="logo" src="images/logoBucketlove.png" alt="Bucketlove">
         <a href="/messages"><img src="images/text.png" alt="Berichten"></a>
     </header>
-    <% data.forEach (function (match,index) { %>
-    <main>
-      <a href="/matches"><img src="images/back.png" alt="Terug"></a>
-      <img src="images/nr1.png" alt="profile picture">
-      <h2><%= match.name %></h2>
-      <ul>
-        <li><b><%= match.age %> jaar</b></li>
-        <li>Komt uit <b><%= match.location %></b></li>
-        <li><b><%= match.gender %></b></li>
-        <li>Werkt bij <b><%= match.work %></b></li>
-        <li>Opleiding <b><%= match.career %></b></li>
-        <li>is een <b><%= match.ampm %></b></li>
-        <li><b>Ik hou van..</b> <%= match.bio %></li>
-        <li><b>Beschrijving: </b><%= match.description %></li>
-      </ul>
+    <% if (data) { %>
+      <main>
+        <a href="/matches"><img src="images/back.png" alt="Terug"></a>
+        <img src="images/nr1.png" alt="profile picture">
+        <h2><%= data.name %></h2>
+        <ul>
+          <li><b><%= data.age %> jaar</b></li>
+          <li>Komt uit <b><%= data.location %></b></li>
+          <li><b><%= data.gender %></b></li>
+          <li>Werkt bij <b><%= data.work %></b></li>
+          <li>Opleiding <b><%= data.career %></b></li>
+          <li>is een <b><%= data.ampm %></b></li>
+          <li><b>Ik hou van..</b> <%= data.bio %></li>
+          <li><b>Beschrijving: </b><%= data.description %></li>
+        </ul>
 
-    <h4>Bucketlist</h4>
-    <ol>
-      <li><%= match.b1 %><button type="button" name="button">Sport</button></li>
-      <li><%= match.b2 %><button type="button" name="button">Reizen</button></li>
-      <li><%= match.b3 %> <button type="button" name="button">Prestatie</button></li>
-      <li><%= match.b4 %> <button type="button" name="button">Eten & Drinken</button></li>
-      <li><%= match.b5 %> <button type="button" name="button">Sport</button></li>
-    </ol>
-    </main>
-    <% }) %>
+      <h4>Bucketlist</h4>
+      <ol>
+        <li><%= data.b1 %><button type="button" name="button">Sport</button></li>
+        <li><%= data.b2 %><button type="button" name="button">Reizen</button></li>
+        <li><%= data.b3 %> <button type="button" name="button">Prestatie</button></li>
+        <li><%= data.b4 %> <button type="button" name="button">Eten & Drinken</button></li>
+        <li><%= data.b5 %> <button type="button" name="button">Sport</button></li>
+      </ol>
+      </main>
+    <% } %>
     <footer>
       <button type="button" name="button"><img src="images/dislike.png" alt="Dislike"></button>
       <button type="button" name="button"><img src="images/text.png" alt="Like"></button>

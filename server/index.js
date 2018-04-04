@@ -59,22 +59,29 @@ var bodyParser = require ('body-parser')
 var ejs = require ('ejs')
 
 module.exports = express()
+  //SET
   .set('view engine', 'ejs')
   .set('views', 'view')
+
+  //USE
   .use(express.static('static'))
   .use('/images', express.static('db/images'))
+
+  //GET
   .get('/', all)
-  .post('/registreren', registrate)
-  .post('/registreren1', registrateNext)
-  .post('/aanmakenBucketlist', makeBucketlist)
-  .post('/locatie', location)
-  .post('/voltooid', done)
-  .get('/matches', matches)
   .get('/:id', match)
   .get('/profile', profile)
   .get('/results', results)
   .get('/settings', settings)
   .get('/messages', messages)
+
+  //POST
+  .post('/registreren', registrate)
+  .post('/registreren1', registrateNext)
+  .post('/aanmakenBucketlist', makeBucketlist)
+  .post('/locatie', location)
+  .post('/voltooid', done)
+  .post('/matches', matches)
   //.get('/:id', all)
   // .post('/', add)
   // .get('/:id', get)
@@ -110,9 +117,42 @@ function done (request, response) {
 function matches (request, response) {
   response.render('matches.ejs', {data: data})
 }
+
+function match (request, response) {
+  var id = request.params.id;
+
+  if (isNaN(id)) {
+    // Handle een error als een id geen nummer is.
+    console.log('400')
+  } else {
+    var matchFound = false
+
+    if (data.filter(match => match.id == id)) {
+      matchFound = true
+    }
+
+    if (matchFound) {
+      data.forEach(match => {
+        if (match.id == id) {
+          response.render('detail.ejs', {data: match})
+        }
+      })
+    } else {
+      console.log('404')
+      // Handle een error als er geen match met de opgegeven id is gevonden.
+    }
+  }
+  /*function match (request, response) {
+    var id = request.params.id;
+    response.render('detail.ejs', {data: data[id]})
+    console.log("id")
+  }*/
+}
+
 function profile (request, response) {
   response.render('profile.ejs', {data: data})
 }
+
 function settings (request, response) {
   response.render('settings.ejs', {data: data})
 }
@@ -125,10 +165,6 @@ function messages (request, response) {
   response.render('messages.ejs', {data: data})
 }
 
-function match (request, response) {
-  var id = request.params.id;
-  response.render('detail.ejs', {data: data[id]})
-}
 
 
 
