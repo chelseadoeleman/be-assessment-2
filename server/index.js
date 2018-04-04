@@ -2,7 +2,7 @@
 
 var data = [
   {
-    id: '1',
+    id: 1,
     email: 'ddj@hotmail.com',
     password: '123',
     name: 'Daan de Jong',
@@ -26,7 +26,7 @@ var data = [
     b5: 'Duiken'
   },
   {
-    id: '2',
+    id: 2,
     email: 'nj@hotmail.com',
     password: '123',
     name: 'Noa Jansen',
@@ -71,6 +71,10 @@ module.exports = express()
   .post('/voltooid', done)
   .get('/matches', matches)
   .get('/:id', match)
+  .get('/profile', profile)
+  .get('/results', results)
+  .get('/settings', settings)
+  .get('/messages', messages)
   //.get('/:id', all)
   // .post('/', add)
   // .get('/:id', get)
@@ -80,47 +84,53 @@ module.exports = express()
   .listen(1902)
 
 function all(request, response) {
-  var result = {errors: [], data: db.all()}
-  response.render('index.ejs', Object.assign({}, result, helpers))
+  response.render('index.ejs', {data: data})
 }
 
 function registrate(request, response) {
-  var result = {errors: [], data: db.all()}
-  response.render('registreren.ejs', Object.assign({}, result, helpers))
+  response.render('registreren.ejs', {data: data})
 }
 
 function registrateNext(request, response) {
-  var result = {errors: [], data: db.all()}
-  response.render('registreren1.ejs', Object.assign({}, result, helpers))
+  response.render('registreren1.ejs', {data: data})
 }
 
 function makeBucketlist (request, response) {
-  var result = {errors: [], data: db.all()}
-  response.render('aanmakenBucketlist.ejs', Object.assign({}, result, helpers))
+  response.render('aanmakenBucketlist.ejs', {data: data})
 }
 
 function location (request, response) {
-  var result = {errors: [], data: db.all()}
-  response.render('locatie.ejs', Object.assign({}, result, helpers))
+  response.render('locatie.ejs', {data: data})
 }
 
 function done (request, response) {
-  var result = {errors: [], data: db.all()}
-  response.render('voltooid.ejs', Object.assign({}, result, helpers))
+  response.render('voltooid.ejs', {data: data})
 }
 
 function matches (request, response) {
   response.render('matches.ejs', {data: data})
-  /*var result = {errors: [], data: db.all()}
-  response.render('matches.ejs', Object.assign({}, result, helpers))*/
+}
+function profile (request, response) {
+  response.render('profile.ejs', {data: data})
+}
+function settings (request, response) {
+  response.render('settings.ejs', {data: data})
+}
+
+function results (request, response) {
+  response.render('results.ejs', {data: data})
+}
+
+function messages (request, response) {
+  response.render('messages.ejs', {data: data})
 }
 
 function match (request, response) {
   var id = request.params.id;
   response.render('detail.ejs', {data: data[id]})
-  /*var result = {errors: [], data: db.all()}
-  response.render('detail.ejs', Object.assign({}, result, helpers))*/
 }
+
+
 
 
 

@@ -8,27 +8,27 @@
   </head>
   <body>
     <header>
-      <nav>
-        <ul>
-          <li>  <a href="#">Matches</a>
-          </li>
-          <li>  <a href="#">Profiel</a>
-          </li>
-          <li>  <a href="#">Test resultaten</a>
-          </li>
-          <li>  <a href="#">Instellingen</a>
-          </li>
-          <li>  <a href="index.html">Uitloggen</a>
-          </li>
-        </ul>
-      </nav>
-      <img class="logo" src="images/logoBucketlove.png" alt="Bucketlove">
-      <a href="#"><img src="images/text.png" alt="Berichten"></a>
+        <nav>
+          <ul>
+            <li>  <a href="/matches">Matches</a>
+            </li>
+            <li>  <a href="/profile">Profiel</a>
+            </li>
+            <li>  <a href="/results">Test resultaten</a>
+            </li>
+            <li>  <a href="/settings">Instellingen</a>
+            </li>
+            <li>  <a href="/">Uitloggen</a>
+            </li>
+          </ul>
+        </nav>
+        <img class="logo" src="images/logoBucketlove.png" alt="Bucketlove">
+        <a href="/messages"><img src="images/text.png" alt="Berichten"></a>
     </header>
+    <% data.forEach (function (match,index) { %>
     <main>
-      <% data.forEach (function (match,index) { %>
       <a href="/matches"><img src="images/back.png" alt="Terug"></a>
-      <img src="images/nr1.png" alt="Daan de Jong">
+      <img src="images/nr1.png" alt="profile picture">
       <h2><%= match.name %></h2>
       <ul>
         <li><b><%= match.age %> jaar</b></li>
@@ -49,8 +49,8 @@
       <li><%= match.b4 %> <button type="button" name="button">Eten & Drinken</button></li>
       <li><%= match.b5 %> <button type="button" name="button">Sport</button></li>
     </ol>
-    <% }) %>
     </main>
+    <% }) %>
     <footer>
       <button type="button" name="button"><img src="images/dislike.png" alt="Dislike"></button>
       <button type="button" name="button"><img src="images/text.png" alt="Like"></button>

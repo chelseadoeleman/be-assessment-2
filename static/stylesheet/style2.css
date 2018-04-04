@@ -18,6 +18,50 @@ justify-content: space-around;
 nav{
   display: none;
 }
+
+/*
+nav{
+  border-bottom: .5em;
+  border-style: solid;
+  border-color: #D81515;
+  text-align: left;
+  height: 5em;
+  display: none;
+}
+
+ul {
+  margin: 0 1em 0 0;
+  width: 100%;
+  display: none;
+}
+
+ul li a{
+  text-decoration: none;
+  color: #D81515;
+  margin: 0 2em;
+  display: block;
+  border-bottom: .5em;
+  border-style: solid;
+  border-color: #D81515;
+  margin: 0;
+}
+
+label{
+  margin: 0 1.5em 0 0;
+  font-size: 1em;
+  display: block;
+  cursor: pointer;
+}
+
+#toggle {
+  display: none;
+}
+
+#toggle:checked + ul {
+  display: block;
+}
+*/
+
 a img{
   max-width: 2em;
   margin: 0.7em;
