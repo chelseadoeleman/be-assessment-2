@@ -70,7 +70,7 @@ module.exports = express()
   .post('/locatie', location)
   .post('/voltooid', done)
   .get('/matches', matches)
-  .get('/nr1', match)
+  .get('/:id', match)
   //.get('/:id', all)
   // .post('/', add)
   // .get('/:id', get)
@@ -116,8 +116,10 @@ function matches (request, response) {
 }
 
 function match (request, response) {
-  var result = {errors: [], data: db.all()}
-  response.render('nr1.ejs', Object.assign({}, result, helpers))
+  var id = request.params.id;
+  response.render('detail.ejs', {data: data[id]})
+  /*var result = {errors: [], data: db.all()}
+  response.render('detail.ejs', Object.assign({}, result, helpers))*/
 }
 
 
