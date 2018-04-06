@@ -13,34 +13,34 @@
       <img class="logo" src="images/logoBucketlove.png" alt="Bucketlove">
     </header>
     <main>
-      <form class="registeren" action="/registreren1" method="post">
+      <form class="registeren" action="/matches" method="POST">
         <fieldset>
           <legend>Registreren</legend>
             <label for="name">Naam (volledig)</label>
-              <input type="text" name="naam" id="name">
+              <input type="text" name="name" id="name" required>
               <label for="email">E-mailadres</label>
-                <input type="email" name="mail" id="email">
+                <input type="email" name="email" id="email">
                 <label for="gender">Geslacht</label>
-                <input type="radio" name="geslacht" id="gender">Man
-                <input type="radio" name="geslacht" id="gender">Vrouw
-                <input type="radio" name="geslacht" id="gender">Genderneutraal
+                <input type="radio" name="gender" id="gender">Man
+                <input type="radio" name="gender" id="gender">Vrouw
+                <input type="radio" name="gender" id="gender">Genderneutraal
               <label for="age">Geboorte datum</label>
-                <input type="number" name="leeftijd" id="age">
+                <input type="number" name="age" id="age">
               <label for="location">Woonplaats</label>
-                <input type="text" name="locatie" id="location">
+                <input type="text" name="location" id="location">
                 <label for="ampm">Ben je een meer een ochtend of avond mens?</label>
-                  <input type="radio" name="ochtendavond" id="ampm">Ochtend
-                  <input type="radio" name="ochtendavond" id="ampm">Avond
+                  <input type="radio" name="ampm" id="ampm">Ochtend
+                  <input type="radio" name="ampm" id="ampm">Avond
                 <label for="career">Opleiding</label>
-                  <input type="text" name="opleiding" id="career">
+                  <input type="text" name="career" id="career">
                 <label for="work">Werk en functie</label>
-                  <input type="text" name="werk" id="work">
+                  <input type="text" name="work" id="work">
                   <label for="interests">Ik hou van..</label>
-                    <input type="beschrijving" name="interesses" id="interests" placeholder="koffie, huisdieren, ..">
+                    <input type="beschrijving" name="interests" id="interests" placeholder="koffie, huisdieren, ..">
                   <label for="bio">Geef een korte beschrijving over jezelf</label>
-                    <input type="text" name="description" id="bio">
+                    <input type="text" name="bio" id="bio">
                   <label for="password">Geef een wachtwoord op</label>
-                    <input type="password" name="description" id="password">
+                    <input type="password" name="password" id="password">
             <button type="submit" name="button">Wordt lid</button>
         </fieldset>
       </form>

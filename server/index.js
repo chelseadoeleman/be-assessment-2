@@ -1,63 +1,13 @@
 'use strict'
 
-var data
-/* = [
-  {
-    id: 1,
-    email: 'ddj@hotmail.com',
-    password: '123',
-    name: 'Daan de Jong',
-    gender: 'Male',
-    age: '26',
-    location: 'Amsterdam',
-    ampm: 'Avondmens',
-    career: 'Commerciële economie HvA',
-    work: 'ABN AMRO',
-    bio: 'Koken, Concerten, Mexicaanses eten & Netflix',
-    description: 'Astronomy, reading, coffee-shop people watching, playing make believe with my nephew, eating out on Monday nights, and staying inside on rainy days. Just a few of the thing that make me happy. Maybe you can help add to the list :) ',
-    match: 'Women',
-    minAge: '22',
-    maxAge: '26',
-    interests: 'Spontaan en goed gevoel voor humor',
-    km: '40',
-    b1: 'Skydiven',
-    b2: 'Bali',
-    b3: 'Nieuwe opleiding',
-    b4: 'Kookcursus volgen',
-    b5: 'Duiken'
-  },
-  {
-    id: 2,
-    email: 'nj@hotmail.com',
-    password: '123',
-    name: 'Noa Jansen',
-    gender: 'Female',
-    age: '28',
-    location: 'Amsterdam',
-    ampm: 'Avondmens',
-    career: 'Commerciële economie HvA',
-    work: 'ABN AMRO',
-    bio: 'Koken, Concerten, Mexicaanses eten & Netflix',
-    description: 'Astronomy, reading, coffee-shop people watching, playing make believe with my nephew, eating out on Monday nights, and staying inside on rainy days. Just a few of the thing that make me happy. Maybe you can help add to the list :) ',
-    match: 'Men',
-    minAge: '26',
-    maxAge: '34',
-    interests: 'Spontaan en goed gevoel voor humor',
-    km: '40',
-    b1: 'Skydiven',
-    b2: 'Bali',
-    b3: 'Nieuwe opleiding',
-    b4: 'Kookcursus volgen',
-    b5: 'Duiken',
-    b6: 'Eten in een sterrenrestaurant'
-  }
-]*/
+console.log('restart server')
 
 require('dotenv').config()
 var session = require ('express-session')
 var express = require('express')
 var db = require('../db')
 var helpers = require('./helpers')
+var slug = require ('slug')
 var bodyParser = require ('body-parser')
 var ejs = require ('ejs')
 var mongo = require('mongodb')
@@ -73,14 +23,15 @@ module.exports = express()
   //USE
   .use(express.static('static'))
   .use('/images', express.static('db/images'))
+  .use(bodyParser.urlencoded({extended: true}))
 
   //GET
   .get('/', all)
-  .get('/:id', match)
   .get('/profile', profile)
   .get('/results', results)
   .get('/settings', settings)
   .get('/messages', messages)
+  .get('/registreren', registratieFormulier)
 
   //POST
   .post('/registreren', registrate)
@@ -95,6 +46,7 @@ module.exports = express()
   // .put('/:id', set)
   // .patch('/:id', change)
   // .delete('/:id', remove)
+  .get('/:id', match)
   .listen(1902)
 
 
@@ -104,11 +56,14 @@ mongo.MongoClient.connect(url, function (error, client) {
 })
 
 function all(request, response) {
-  response.render('index.ejs', {data: data})
+  response.render('index.ejs')
+}
+function registratieFormulier (request, response) {
+  response.render('registreren.ejs')
 }
 
 function registrate(request, response, next) {
-  response.render('registreren.ejs', {data: data})
+  console.log(request)
   db.collection('match').insertOne({
     email: request.body.email,
     password:request.body.password,
@@ -126,25 +81,25 @@ function registrate(request, response, next) {
     if (error) {
       next(error)
     } else {
-      response.redirect('/registreren1' + data.insertedId)
+      response.redirect('/matches' + data.insertedId)
     }
   }
 }
 
 function registrateNext(request, response) {
-  response.render('registreren1.ejs', {data: data})
+  response.render('registreren1.ejs')
 }
 
 function makeBucketlist (request, response) {
-  response.render('aanmakenBucketlist.ejs', {data: data})
+  response.render('aanmakenBucketlist.ejs')
 }
 
 function location (request, response) {
-  response.render('locatie.ejs', {data: data})
+  response.render('locatie.ejs')
 }
 
 function finished (request, response) {
-  response.render('voltooid.ejs', {data: data})
+  response.render('voltooid.ejs')
 }
 
 function matches(request, response, next) {
@@ -176,19 +131,19 @@ function match(request, response, next) {
 }
 
 function profile (request, response) {
-  response.render('profile.ejs', {data: data})
+  response.render('profile.ejs')
 }
 
 function settings (request, response) {
-  response.render('settings.ejs', {data: data})
+  response.render('settings.ejs')
 }
 
 function results (request, response) {
-  response.render('results.ejs', {data: data})
+  response.render('results.ejs')
 }
 
 function messages (request, response) {
-  response.render('messages.ejs', {data: data})
+  response.render('messages.ejs')
 }
 
 /*
@@ -245,3 +200,55 @@ function messages (request, response) {
     console.log("id")
   }
 }*/
+
+/*var data = [
+  {
+    id: 1,
+    email: 'ddj@hotmail.com',
+    password: '123',
+    name: 'Daan de Jong',
+    gender: 'Male',
+    age: '26',
+    location: 'Amsterdam',
+    ampm: 'Avondmens',
+    career: 'Commerciële economie HvA',
+    work: 'ABN AMRO',
+    bio: 'Koken, Concerten, Mexicaanses eten & Netflix',
+    description: 'Astronomy, reading, coffee-shop people watching, playing make believe with my nephew, eating out on Monday nights, and staying inside on rainy days. Just a few of the thing that make me happy. Maybe you can help add to the list :) ',
+    match: 'Women',
+    minAge: '22',
+    maxAge: '26',
+    interests: 'Spontaan en goed gevoel voor humor',
+    km: '40',
+    b1: 'Skydiven',
+    b2: 'Bali',
+    b3: 'Nieuwe opleiding',
+    b4: 'Kookcursus volgen',
+    b5: 'Duiken'
+  },
+  {
+    id: 2,
+    email: 'nj@hotmail.com',
+    password: '123',
+    name: 'Noa Jansen',
+    gender: 'Female',
+    age: '28',
+    location: 'Amsterdam',
+    ampm: 'Avondmens',
+    career: 'Commerciële economie HvA',
+    work: 'ABN AMRO',
+    bio: 'Koken, Concerten, Mexicaanses eten & Netflix',
+    description: 'Astronomy, reading, coffee-shop people watching, playing make believe with my nephew, eating out on Monday nights, and staying inside on rainy days. Just a few of the thing that make me happy. Maybe you can help add to the list :) ',
+    match: 'Men',
+    minAge: '26',
+    maxAge: '34',
+    interests: 'Spontaan en goed gevoel voor humor',
+    km: '40',
+    b1: 'Skydiven',
+    b2: 'Bali',
+    b3: 'Nieuwe opleiding',
+    b4: 'Kookcursus volgen',
+    b5: 'Duiken',
+    b6: 'Eten in een sterrenrestaurant'
+  }
+]*/
