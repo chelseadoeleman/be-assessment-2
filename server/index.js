@@ -51,12 +51,17 @@ var data = [
     b6: 'Eten in een sterrenrestaurant'
   }
 ]
-
+require('dotenv').config()
+var session = require ('express-session')
 var express = require('express')
 var db = require('../db')
 var helpers = require('./helpers')
 var bodyParser = require ('body-parser')
 var ejs = require ('ejs')
+var mongo = require('mongodb')
+var db = null
+var url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT
+console.log(url)
 
 module.exports = express()
   //SET
@@ -90,6 +95,12 @@ module.exports = express()
   // .delete('/:id', remove)
   .listen(1902)
 
+
+mongo.MongoClient.connect(url, function (error, client) {
+    if (error) throw error
+    db = client.db(process.env.DB_NAME)
+})
+
 function all(request, response) {
   response.render('index.ejs', {data: data})
 }
@@ -121,6 +132,7 @@ function matches (request, response) {
 function match (request, response) {
   var id = request.params.id;
 
+  //Maikel van Veen
   if (isNaN(id)) {
     // Handle een error als een id geen nummer is.
     console.log('400')
