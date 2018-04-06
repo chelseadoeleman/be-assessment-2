@@ -1,6 +1,7 @@
 'use strict'
 
-var data = [
+var data
+/* = [
   {
     id: 1,
     email: 'ddj@hotmail.com',
@@ -50,7 +51,8 @@ var data = [
     b5: 'Duiken',
     b6: 'Eten in een sterrenrestaurant'
   }
-]
+]*/
+
 require('dotenv').config()
 var session = require ('express-session')
 var express = require('express')
@@ -85,10 +87,10 @@ module.exports = express()
   .post('/registreren1', registrateNext)
   .post('/aanmakenBucketlist', makeBucketlist)
   .post('/locatie', location)
-  .post('/voltooid', done)
+  .post('/voltooid', finished)
   .post('/matches', matches)
   //.get('/:id', all)
-  // .post('/', add)
+  //.post('/', add)
   // .get('/:id', get)
   // .put('/:id', set)
   // .patch('/:id', change)
@@ -105,8 +107,28 @@ function all(request, response) {
   response.render('index.ejs', {data: data})
 }
 
-function registrate(request, response) {
+function registrate(request, response, next) {
   response.render('registreren.ejs', {data: data})
+  db.collection('match').insertOne({
+    email: request.body.email,
+    password:request.body.password,
+    name: request.body.name,
+    gender:request.body.gender,
+    age:request.body.age,
+    location:request.body.location,
+    ampm:request.body.ampm,
+    career:request.body.career,
+    work:request.body.work,
+    bio:request.body.bio,
+    description:request.body.description
+  }, done)
+  function done(error, data) {
+    if (error) {
+      next(error)
+    } else {
+      response.redirect('/registreren1' + data.insertedId)
+    }
+  }
 }
 
 function registrateNext(request, response) {
@@ -121,15 +143,78 @@ function location (request, response) {
   response.render('locatie.ejs', {data: data})
 }
 
-function done (request, response) {
+function finished (request, response) {
   response.render('voltooid.ejs', {data: data})
 }
 
-function matches (request, response) {
-  response.render('matches.ejs', {data: data})
+function matches(request, response, next) {
+  db.collection('match').find().toArray(done)
+
+  function done(error, data) {
+    if (error) {
+      next(error)
+    } else {
+      console.log(data)
+      response.render('matches.ejs', {data: data})
+    }
+  }
 }
 
-function match (request, response) {
+function match(request, response, next) {
+  var id = request.params.id
+  db.collection('match').findOne({
+    _id: mongo.ObjectID(id)
+  }, done)
+
+  function done(error, data) {
+    if (error) {
+      next(error)
+    } else {
+      response.render('detail.ejs', {data: data})
+    }
+  }
+}
+
+function profile (request, response) {
+  response.render('profile.ejs', {data: data})
+}
+
+function settings (request, response) {
+  response.render('settings.ejs', {data: data})
+}
+
+function results (request, response) {
+  response.render('results.ejs', {data: data})
+}
+
+function messages (request, response) {
+  response.render('messages.ejs', {data: data})
+}
+
+/*
+    match:request.body.match,
+    minAge:request.body.minAge,
+    maxAge:request.body.maxAge,
+    interests:request.body.interests,
+    km:request.body.km,
+    bucketlist:request.body.bucketlist
+  }, done)
+
+  function done(error, data) {
+    if (error) {
+      next(error)
+    } else {
+      response.redirect('/' + data.insertedId)
+    }
+  }
+}
+/*function matches (request, response) {
+  response.render('matches.ejs', {data: data})
+}*/
+
+/*
+  //Handle data in array from server
+  function match (request, response) {
   var id = request.params.id;
 
   //Maikel van Veen
@@ -158,45 +243,5 @@ function match (request, response) {
     var id = request.params.id;
     response.render('detail.ejs', {data: data[id]})
     console.log("id")
-  }*/
-}
-
-function profile (request, response) {
-  response.render('profile.ejs', {data: data})
-}
-
-function settings (request, response) {
-  response.render('settings.ejs', {data: data})
-}
-
-function results (request, response) {
-  response.render('results.ejs', {data: data})
-}
-
-function messages (request, response) {
-  response.render('messages.ejs', {data: data})
-}
-
-
-
-
-
-
-/*function detail(request, response) {
-  var id = request.params.id;
-
-  if (db.has(id)) {
-  var result = {errors: [], data: db.get(id)}
-  response.render('detail.ejs', Object.assign({}, result, helpers))
-  }
-
-  /*else if (db.had(NaN)) {
-    var error = {errors: [id: 400]}
-  }*/
-
-/*  else {
-    var error = {errors: [{id: 404, title: 'Not found',},],}
-    response.render('error.ejs', Object.assign({}, error, helpers))
-    // response.statusCode = 404;
   }
 }*/

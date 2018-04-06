@@ -16,29 +16,31 @@
       <form class="registeren" action="/registreren1" method="post">
         <fieldset>
           <legend>Registreren</legend>
-            <label for="naam">Naam (volledig)</label>
-              <input type="text" name="name" id="naam">
+            <label for="name">Naam (volledig)</label>
+              <input type="text" name="naam" id="name">
               <label for="email">E-mailadres</label>
                 <input type="email" name="mail" id="email">
-                <label for="geslacht">Geslacht</label>
-                <input type="radio" name="gender" id="geslacht">Man
-                <input type="radio" name="gender" id="geslacht">Vrouw
-                <input type="radio" name="gender" id="geslacht">Genderneutraal
-              <label for="leeftijd">Geboorte datum</label>
-                <input type="date" name="age" id="leeftijd">
-              <label for="locatie">Woonplaats</label>
-                <input type="text" name="location" id="locatie">
+                <label for="gender">Geslacht</label>
+                <input type="radio" name="geslacht" id="gender">Man
+                <input type="radio" name="geslacht" id="gender">Vrouw
+                <input type="radio" name="geslacht" id="gender">Genderneutraal
+              <label for="age">Geboorte datum</label>
+                <input type="number" name="leeftijd" id="age">
+              <label for="location">Woonplaats</label>
+                <input type="text" name="locatie" id="location">
                 <label for="ampm">Ben je een meer een ochtend of avond mens?</label>
                   <input type="radio" name="ochtendavond" id="ampm">Ochtend
                   <input type="radio" name="ochtendavond" id="ampm">Avond
-                <label for="opleiding">Opleiding</label>
-                  <input type="text" name="career" id="opleiding">
-                <label for="werk">Werk en functie</label>
-                  <input type="text" name="work" id="werk">
-                  <label for="bio">Ik hou van..</label>
-                    <input type="beschrijving" name="biografie" id="bio" placeholder="koffie, huisdieren, ..">
+                <label for="career">Opleiding</label>
+                  <input type="text" name="opleiding" id="career">
+                <label for="work">Werk en functie</label>
+                  <input type="text" name="werk" id="work">
+                  <label for="interests">Ik hou van..</label>
+                    <input type="beschrijving" name="interesses" id="interests" placeholder="koffie, huisdieren, ..">
                   <label for="bio">Geef een korte beschrijving over jezelf</label>
-                    <input type="text" name="description" id="beschrijving">
+                    <input type="text" name="description" id="bio">
+                  <label for="password">Geef een wachtwoord op</label>
+                    <input type="password" name="description" id="password">
             <button type="submit" name="button">Wordt lid</button>
         </fieldset>
       </form>
