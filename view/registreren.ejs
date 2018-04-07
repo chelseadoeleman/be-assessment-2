@@ -13,7 +13,7 @@
       <img class="logo" src="images/logoBucketlove.png" alt="Bucketlove">
     </header>
     <main>
-      <form class="registeren" action="/matches" method="POST">
+      <form class="registeren" action="/registreren" method="POST">
         <fieldset>
           <legend>Registreren</legend>
             <label for="name">Naam (volledig)</label>
@@ -41,7 +41,34 @@
                     <input type="text" name="bio" id="bio">
                   <label for="password">Geef een wachtwoord op</label>
                     <input type="password" name="password" id="password">
-            <button type="submit" name="button">Wordt lid</button>
+        </fieldset>
+        <fieldset>
+          <label for="match">Met wie wil jij gematcht worden? (maximaal 3)</label>
+            <input type="checkbox" name="matches" id="match">Man
+            <input type="checkbox" name="matches" id="match">Vrouw
+            <input type="checkbox" name="matches" id="match">Genderneutraal
+          <label for="min">Minimum leeftijd</label>
+            <input type="number" name="minimum" id="min">
+            <h4>VS</h4>
+          <label for="max">Maximum leeftijd</label>
+              <input type="number" name="maximum" id="max">
+          <label for="interests">Geef een korte beschrijving over wat jij zoekt in een partner</label>
+            <input type="text" name="interresses" id="interests">
+            <label for="tot">Hoe ver wil jij reizen?</label>
+              <select class="tot" name="till">
+                <option value="10">10 km</option>
+                <option value="20">20 km</option>
+                <option value="30">30 km</option>
+                <option value="40">40 km</option>
+                <option value="50">50 km</option>
+                <option value="60">60 km</option>
+                <option value="70">70 km</option>
+                <option value="80">80 km</option>
+                <option value="90">90 km</option>
+                <option value="100">100 km</option>
+                <option value="none">Geen voorkeur</option>
+              </select>
+          <button type="submit" name="button">Wordt lid</button>
         </fieldset>
       </form>
     </main>

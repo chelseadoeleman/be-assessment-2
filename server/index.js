@@ -7,7 +7,6 @@ var session = require ('express-session')
 var express = require('express')
 var db = require('../db')
 var helpers = require('./helpers')
-var slug = require ('slug')
 var bodyParser = require ('body-parser')
 var ejs = require ('ejs')
 var mongo = require('mongodb')
@@ -26,20 +25,20 @@ module.exports = express()
   .use(bodyParser.urlencoded({extended: true}))
 
   //GET
-  .get('/', all)
   .get('/profile', profile)
   .get('/results', results)
   .get('/settings', settings)
   .get('/messages', messages)
   .get('/registreren', registratieFormulier)
+  .get('/', all)
 
   //POST
   .post('/registreren', registrate)
-  .post('/registreren1', registrateNext)
-  .post('/aanmakenBucketlist', makeBucketlist)
-  .post('/locatie', location)
-  .post('/voltooid', finished)
+  //.post('/registreren1', registrateNext)
+  //.post('/aanmakenBucketlist', makeBucketlist)
+  //.post('/locatie', location)
   .post('/matches', matches)
+  .post('/voltooid', finished)
   //.get('/:id', all)
   //.post('/', add)
   // .get('/:id', get)
@@ -63,7 +62,8 @@ function registratieFormulier (request, response) {
 }
 
 function registrate(request, response, next) {
-  console.log(request)
+  //console.log(request)
+  console.log(request.body)
   db.collection('match').insertOne({
     email: request.body.email,
     password:request.body.password,
@@ -75,18 +75,28 @@ function registrate(request, response, next) {
     career:request.body.career,
     work:request.body.work,
     bio:request.body.bio,
-    description:request.body.description
+    description:request.body.description,
+    match:request.body.match,
+    minAge:request.body.minAge,
+    maxAge:request.body.maxAge,
+    interests:request.body.interests,
+    km:request.body.km
+    // bucketlist:request.body.bucketlist
   }, done)
   function done(error, data) {
     if (error) {
       next(error)
     } else {
-      response.redirect('/matches' + data.insertedId)
+      if ('/voltooid:id') {
+        response.render('voltooid.ejs')
+      } else{
+        response.redirect('/voltooid')
+      }
     }
   }
 }
 
-function registrateNext(request, response) {
+/*function registrateNext(request, response) {
   response.render('registreren1.ejs')
 }
 
@@ -96,7 +106,7 @@ function makeBucketlist (request, response) {
 
 function location (request, response) {
   response.render('locatie.ejs')
-}
+}*/
 
 function finished (request, response) {
   response.render('voltooid.ejs')
@@ -146,23 +156,7 @@ function messages (request, response) {
   response.render('messages.ejs')
 }
 
-/*
-    match:request.body.match,
-    minAge:request.body.minAge,
-    maxAge:request.body.maxAge,
-    interests:request.body.interests,
-    km:request.body.km,
-    bucketlist:request.body.bucketlist
-  }, done)
 
-  function done(error, data) {
-    if (error) {
-      next(error)
-    } else {
-      response.redirect('/' + data.insertedId)
-    }
-  }
-}
 /*function matches (request, response) {
   response.render('matches.ejs', {data: data})
 }*/
