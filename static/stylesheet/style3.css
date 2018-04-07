@@ -16,7 +16,7 @@ justify-content: center;
 }
 
 nav{
-  display: none;
+  display: block;
 }
 
 a:nth-child(1) img{

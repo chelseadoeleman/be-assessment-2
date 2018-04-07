@@ -29,6 +29,7 @@ module.exports = express()
 
   //GET
   .get('/', all)
+  .get('/logOut', logOut)
   .get('/signUpSuccess', finished)
   .get('/profile', profile)
   .get('/results', results)
@@ -51,6 +52,16 @@ mongo.MongoClient.connect(url, function (error, client) {
 
 function all(request, response) {
   response.render('index.ejs')
+}
+
+function logOut(request, response, next) {
+  request.session.destroy(function (error){
+    if (error) {
+      next(error)
+    } else {
+      response.redirect('/')
+    }
+  })
 }
 
 function renderSignUpForm (request, response) {
@@ -91,7 +102,7 @@ function signUp(request, response, next) {
 
 function finished (request, response) {
   if (request.session.user) {
-    response.render('voltooid.ejs')
+    response.render('voltooid.ejs', {data: {name: request.session.user.username}})
   } else {
     response.status(401).send('Credentials required')
   }

@@ -16,7 +16,7 @@ justify-content: space-around;
 }
 
 nav{
-  display: none;
+  display: block;
 }
 a img{
   max-width: 2em;
