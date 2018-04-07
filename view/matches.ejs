@@ -10,15 +10,20 @@
     <header>
       <nav>
         <ul>
-          <li>  <a href="/matches">Matches</a>
+          <li>
+            <a href="/matches">Matches</a>
           </li>
-          <li>  <a href="/profile">Profiel</a>
+          <li>
+            <a href="/profile">Profiel</a>
           </li>
-          <li>  <a href="/results">Test resultaten</a>
+          <li>
+            <a href="/results">Test resultaten</a>
           </li>
-          <li>  <a href="/settings">Instellingen</a>
+          <li>
+            <a href="/settings">Instellingen</a>
           </li>
-          <li>  <a href="/">Uitloggen</a>
+          <li>
+            <a href="/">Uitloggen</a>
           </li>
         </ul>
       </nav>
@@ -29,123 +34,23 @@
       <h2>Matches</h2>
       <% if (typeof data !== undefined && data.length !== 0) { %>
       <section>
-      <% data && data.forEach (function (match,index) { %>
-        <article>
-          <img src="images/nr1.png" alt="nr1">
-          <h4><%= match.name %></h4>
-          <h5><%= match.age %>, <%= match.location %></h5>
-          <p>3 overeenkomsten</p>
-          <ul>
-            <li>Skydiven, <i>Sport</i></li>
-            <li>Bali, <i>Reizen</i></li>
-            <li>Eten in een sterrenrestaurant, <i>Eten & drinken</i></li>
-          </ul>
-          <!--<a href="/<%= data[index]._id %>"><button type="button" name="button">Bekijk meer info</button></a>
-          <a href="/<%= data[index]._id %>"><%= data[index].title %></a>-->
-          <a href="/<%= match._id %>" ><button type="button" name="button">Bekijk meer info</button></a>
-          <button type="button" name="button"><img src="images/dislike.png" alt="Dislike"></button>
-          <button type="button" name="button"><img src="images/hart.png" alt="Like"></button>
-        </article>
-        <% }) %>
+        <% data && data.forEach (function (match,index) { %>
+          <article>
+            <img src="images/nr1.png" alt="nr1">
+            <h4><%= match.name %></h4>
+            <h5><%= match.age %>, <%= match.location %></h5>
+            <p>3 overeenkomsten</p>
+            <ul>
+              <li>Skydiven, <i>Sport</i></li>
+              <li>Bali, <i>Reizen</i></li>
+              <li>Eten in een sterrenrestaurant, <i>Eten & drinken</i></li>
+            </ul>
+            <a href="/<%= match._id %>" ><button type="button" name="button">Bekijk meer info</button></a>
+            <button type="button" name="button"><img src="images/dislike.png" alt="Dislike"></button>
+            <button type="button" name="button"><img src="images/hart.png" alt="Like"></button>
+          </article>
+          <% }) %>
         <% } %>
-        <!-- <article>
-          <img src="images/nr2.png" alt="nr2">
-          <h4>Noah Jansen</h4>
-          <h5>28 jaar, Amsterdam</h5>
-          <p>9 overeenkomsten</p>
-          <ul>
-            <li>Skydiven, <i>Sport</i></li>
-            <li>Bali, <i>Reizen</i></li>
-            <li>Eten in een sterren restaurant, <i>Eten & drinken</i></li>
-          </ul>
-          <a href="/nr1"><button type="button" name="button">Bekijk meer info</button></a>
-          <button type="button" name="button"><img src="images/dislike.png" alt="Dislike"></button>
-          <button type="button" name="button"><img src="images/hart.png" alt="Like"></button>
-        </article>
-        <article>
-          <img src="images/nr3.png" alt="nr3">
-          <h4>Sem de Vries</h4>
-          <h5>28 jaar, Amsterdam</h5>
-          <p>5 overeenkomsten</p>
-          <ul>
-            <li>Skydiven, <i>Sport</i></li>
-            <li>Bali, <i>Reizen</i></li>
-            <li>Eten in een sterren restaurant, <i>Eten & drinken</i></li>
-          </ul>
-          <a href="nr1.html"><button type="button" name="button">Bekijk meer info</button></a>
-          <button type="button" name="button"><img src="images/dislike.png" alt="Dislike"></button>
-          <button type="button" name="button"><img src="images/hart.png" alt="Like"></button>
-        </article>
-        <article>
-          <img src="images/nr4.png" alt="nr4">
-          <h4>Lucas van den Berg</h4>
-          <h5>26 jaar, Haarlem</h5>
-          <p>3 overeenkomsten</p>
-          <ul>
-            <li>Skydiven, <i>Sport</i></li>
-            <li>Bali, <i>Reizen</i></li>
-            <li>Eten in een sterren restaurant, <i>Eten & drinken</i></li>
-          </ul>
-          <a href="nr1.html"><button type="button" name="button">Bekijk meer info</button></a>
-          <button type="button" name="button"><img src="images/dislike.png" alt="Dislike"></button>
-          <button type="button" name="button"><img src="images/hart.png" alt="Like"></button>
-        </article>
-        <article>
-          <img src="images/nr5.png" alt="nr5">
-          <h4>Jesse van Dijk</h4>
-          <h5>27 jaar, Amsterdam</h5>
-          <p>7 overeenkomsten</p>
-          <ul>
-            <li>Skydiven, <i>Sport</i></li>
-            <li>Bali, <i>Reizen</i></li>
-            <li>Eten in een sterren restaurant, <i>Eten & drinken</i></li>
-          </ul>
-          <a href="nr1.html"><button type="button" name="button">Bekijk meer info</button></a>
-          <button type="button" name="button"><img src="images/dislike.png" alt="Dislike"></button>
-          <button type="button" name="button"><img src="images/hart.png" alt="Like"></button>
-        </article>
-        <article>
-          <img src="images/nr6.png" alt="nr6">
-          <h4>Finn Bakker</h4>
-          <h5>27 jaar, Amstelveen</h5>
-          <p>3 overeenkomsten</p>
-          <ul>
-            <li>Skydiven, <i>Sport</i></li>
-            <li>Bali, <i>Reizen</i></li>
-            <li>Eten in een sterren restaurant, <i>Eten & drinken</i></li>
-          </ul>
-          <a href="nr1.html"><button type="button" name="button">Bekijk meer info</button></a>
-          <button type="button" name="button"><img src="images/dislike.png" alt="Dislike"></button>
-          <button type="button" name="button"><img src="images/hart.png" alt="Like"></button>
-        </article>
-        <article>
-          <img src="images/nr7.png" alt="nr7">
-          <h4>Milan Janssen</h4>
-          <h5>29 jaar, Amsterdam</h5>
-          <p>7 overeenkomsten</p>
-          <ul>
-            <li>Skydiven, <i>Sport</i></li>
-            <li>Bali, <i>Reizen</i></li>
-            <li>Eten in een sterren restaurant, <i>Eten & drinken</i></li>
-          </ul>
-          <a href="nr1.html"><button type="button" name="button">Bekijk meer info</button></a>
-          <button type="button" name="button"><img src="images/dislike.png" alt="Dislike"></button>
-          <button type="button" name="button"><img src="images/hart.png" alt="Like"></button>
-        </article>
-        <article>
-          <img src="images/nr8.png" alt="nr8">
-          <h4>Max Visser</h4>
-          <h5>26 jaar, Amsterdam</h5>
-          <p>3 overeenkomsten</p>
-          <ul>
-            <li>Skydiven, <i>Sport</i></li>
-            <li>Bali, <i>Reizen</i></li>
-            <li>Eten in een sterren restaurant, <i>Eten & drinken</i></li>
-          </ul>
-          <a href="nr1.html"><button type="button" name="button">Bekijk meer info</button></a>
-          <button type="button" name="button"><img src="images/dislike.png" alt="Dislike"></button>
-          <button type="button" name="button"><img src="images/hart.png" alt="Like"></button>
-        </article>-->
       </section>
     </main>
   </body>
