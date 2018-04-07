@@ -15,6 +15,7 @@
     "view"
   ],
   "dependencies": {
+    "argon2": "^0.17.3",
     "body-parser": "^1.18.2",
     "dotenv": "^5.0.1",
     "ejs": "^2.5.8",

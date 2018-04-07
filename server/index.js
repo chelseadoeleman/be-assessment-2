@@ -3,10 +3,11 @@
 console.log('restart server')
 
 require('dotenv').config()
-var session = require ('express-session')
+var argon2 = require('argon2')
+var session = require('express-session')
 var express = require('express')
-var bodyParser = require ('body-parser')
-var ejs = require ('ejs')
+var bodyParser = require('body-parser')
+var ejs = require('ejs')
 var mongo = require('mongodb')
 var db = null
 var url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT
@@ -34,13 +35,14 @@ module.exports = express()
   .get('/profile', profile)
   .get('/results', results)
   .get('/settings', settings)
+  .get('/matches', matches)
   .get('/messages', messages)
-  .get('/signUpForm', renderSignUpForm)
+  .get('/signUpForm', signUpForm)
   .get('/:id', match)
 
   //POST
+  .post('/login', login)
   .post('/signUp', signUp)
-  .post('/matches', matches)
   .listen(1902)
 
 
@@ -54,6 +56,47 @@ function all(request, response) {
   response.render('index.ejs')
 }
 
+function login(request, response, next) {
+  var email = request.body.email.toLowerCase()
+  var password = request.body.password
+
+  if (!email || !password) {
+    response
+      .status(400)
+      .send('Email or password are missing')
+
+    return
+  }
+
+  db.collection('match').find({email: email}).toArray(done)
+
+  function done (error, data) {
+    var user = data && data[0]
+
+    if (error) {
+      next(error)
+    } else if (user) {
+      argon2
+        .verify(user.password, password)
+        .then(onVerify, next)
+    } else {
+      response
+        .status(401)
+        .send('Email does not exist')
+    }
+
+    function onVerify (match) {
+      if (match) {
+        var username = user.name.charAt(0).toUpperCase() + user.name.slice(1)
+        request.session.user = {username: username, _id: user._id}
+        response.redirect('/matches')
+      } else {
+        response.status(401).send('Password incorrect')
+      }
+    }
+  }
+}
+
 function logOut(request, response, next) {
   request.session.destroy(function (error){
     if (error) {
@@ -64,43 +107,70 @@ function logOut(request, response, next) {
   })
 }
 
-function renderSignUpForm (request, response) {
+function signUpForm(request, response) {
   response.render('registreren.ejs')
 }
 
 function signUp(request, response, next) {
-  db.collection('match').insertOne({
-    email: request.body.email,
-    password: request.body.password,
-    name: request.body.name,
-    gender: request.body.gender,
-    age: request.body.age,
-    location: request.body.location,
-    ampm: request.body.ampm,
-    career: request.body.career,
-    work: request.body.work,
-    bio: request.body.bio,
-    description: request.body.description,
-    match: request.body.match,
-    minAge: request.body.minAge,
-    maxAge: request.body.maxAge,
-    interests: request.body.interests,
-    km: request.body.km
-    // bucketlist:request.body.bucketlist
-  }, done)
+  var email = request.body.email
+  var password = request.body.password
 
-  function done(error, data) {
+  if (!email || !password) {
+    response
+      .status(400)
+      .send('Email or password are missing')
+
+    return
+  }
+
+  db.collection('match').find({email: email}).toArray(findDuplicateEmail)
+
+  function findDuplicateEmail(error, data) {
     if (error) {
       next(error)
+    } else if (data && data.length) {
+      response
+        .status(400)
+        .send('Existing email')
     } else {
-      var username = request.body.name.charAt(0).toUpperCase() + request.body.name.slice(1)
-      request.session.user = {username: username, _id: data.insertedId}
-      response.redirect('/signUpSuccess')
+      argon2.hash(password).then(onhash, next)
+
+      function onhash(hash) {
+        db.collection('match').insertOne({
+          email: request.body.email,
+          password: hash,
+          name: request.body.name,
+          gender: request.body.gender,
+          age: request.body.age,
+          location: request.body.location,
+          ampm: request.body.ampm,
+          career: request.body.career,
+          work: request.body.work,
+          bio: request.body.bio,
+          description: request.body.description,
+          match: request.body.match,
+          minAge: request.body.minAge,
+          maxAge: request.body.maxAge,
+          interests: request.body.interests,
+          km: request.body.km
+          // bucketlist:request.body.bucketlist
+        }, done)
+
+        function done(error, data) {
+          if (error) {
+            next(error)
+          } else {
+            var username = request.body.name.charAt(0).toUpperCase() + request.body.name.slice(1)
+            request.session.user = {username: username, _id: data.insertedId}
+            response.redirect('/signUpSuccess')
+          }
+        }
+      }
     }
   }
 }
 
-function finished (request, response) {
+function finished(request, response) {
   if (request.session.user) {
     response.render('voltooid.ejs', {data: {name: request.session.user.username}})
   } else {
@@ -124,7 +194,6 @@ function matches(request, response, next) {
   }
 }
 
-
 function match(request, response, next) {
   if (request.session.user) {
     var id = request.params.id
@@ -145,7 +214,7 @@ function match(request, response, next) {
   }
 }
 
-function profile (request, response) {
+function profile(request, response) {
   if (request.session.user) {
     response.render('profile.ejs')
   } else {
@@ -153,7 +222,7 @@ function profile (request, response) {
   }
 }
 
-function settings (request, response) {
+function settings(request, response) {
   if (request.session.user) {
     response.render('settings.ejs')
   } else {
@@ -161,7 +230,7 @@ function settings (request, response) {
   }
 }
 
-function results (request, response) {
+function results(request, response) {
   if (request.session.user) {
     response.render('results.ejs')
   } else {
@@ -169,7 +238,7 @@ function results (request, response) {
   }
 }
 
-function messages (request, response) {
+function messages(request, response) {
   if (request.session.user) {
     response.render('messages.ejs')
   } else {
