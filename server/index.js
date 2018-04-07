@@ -25,88 +25,64 @@ module.exports = express()
   .use(bodyParser.urlencoded({extended: true}))
 
   //GET
+  .get('/', all)
   .get('/profile', profile)
   .get('/results', results)
   .get('/settings', settings)
   .get('/messages', messages)
-  .get('/registreren', registratieFormulier)
-  .get('/', all)
+  .get('/signUpForm', renderSignUpForm)
 
   //POST
-  .post('/registreren', registrate)
-  //.post('/registreren1', registrateNext)
-  //.post('/aanmakenBucketlist', makeBucketlist)
-  //.post('/locatie', location)
+  .post('/signUp', signUp)
   .post('/matches', matches)
-  .post('/voltooid', finished)
-  //.get('/:id', all)
-  //.post('/', add)
-  // .get('/:id', get)
-  // .put('/:id', set)
-  // .patch('/:id', change)
-  // .delete('/:id', remove)
+  .get('/voltooid', finished)
   .get('/:id', match)
   .listen(1902)
 
 
 mongo.MongoClient.connect(url, function (error, client) {
     if (error) throw error
+
     db = client.db(process.env.DB_NAME)
 })
 
 function all(request, response) {
   response.render('index.ejs')
 }
-function registratieFormulier (request, response) {
+
+function renderSignUpForm (request, response) {
   response.render('registreren.ejs')
 }
 
-function registrate(request, response, next) {
-  //console.log(request)
-  console.log(request.body)
+function signUp(request, response, next) {
   db.collection('match').insertOne({
     email: request.body.email,
-    password:request.body.password,
+    password: request.body.password,
     name: request.body.name,
-    gender:request.body.gender,
-    age:request.body.age,
-    location:request.body.location,
-    ampm:request.body.ampm,
-    career:request.body.career,
-    work:request.body.work,
-    bio:request.body.bio,
-    description:request.body.description,
-    match:request.body.match,
-    minAge:request.body.minAge,
-    maxAge:request.body.maxAge,
-    interests:request.body.interests,
-    km:request.body.km
+    gender: request.body.gender,
+    age: request.body.age,
+    location: request.body.location,
+    ampm: request.body.ampm,
+    career: request.body.career,
+    work: request.body.work,
+    bio: request.body.bio,
+    description: request.body.description,
+    match: request.body.match,
+    minAge: request.body.minAge,
+    maxAge: request.body.maxAge,
+    interests: request.body.interests,
+    km: request.body.km
     // bucketlist:request.body.bucketlist
   }, done)
+
   function done(error, data) {
     if (error) {
       next(error)
     } else {
-      if ('/voltooid:id') {
-        response.render('voltooid.ejs')
-      } else{
         response.redirect('/voltooid')
-      }
     }
   }
 }
-
-/*function registrateNext(request, response) {
-  response.render('registreren1.ejs')
-}
-
-function makeBucketlist (request, response) {
-  response.render('aanmakenBucketlist.ejs')
-}
-
-function location (request, response) {
-  response.render('locatie.ejs')
-}*/
 
 function finished (request, response) {
   response.render('voltooid.ejs')
@@ -119,7 +95,6 @@ function matches(request, response, next) {
     if (error) {
       next(error)
     } else {
-      console.log(data)
       response.render('matches.ejs', {data: data})
     }
   }
@@ -127,6 +102,7 @@ function matches(request, response, next) {
 
 function match(request, response, next) {
   var id = request.params.id
+
   db.collection('match').findOne({
     _id: mongo.ObjectID(id)
   }, done)
@@ -155,94 +131,3 @@ function results (request, response) {
 function messages (request, response) {
   response.render('messages.ejs')
 }
-
-
-/*function matches (request, response) {
-  response.render('matches.ejs', {data: data})
-}*/
-
-/*
-  //Handle data in array from server
-  function match (request, response) {
-  var id = request.params.id;
-
-  //Maikel van Veen
-  if (isNaN(id)) {
-    // Handle een error als een id geen nummer is.
-    console.log('400')
-  } else {
-    var matchFound = false
-
-    if (data.filter(match => match.id == id)) {
-      matchFound = true
-    }
-
-    if (matchFound) {
-      data.forEach(match => {
-        if (match.id == id) {
-          response.render('detail.ejs', {data: match})
-        }
-      })
-    } else {
-      console.log('404')
-      // Handle een error als er geen match met de opgegeven id is gevonden.
-    }
-  }
-  /*function match (request, response) {
-    var id = request.params.id;
-    response.render('detail.ejs', {data: data[id]})
-    console.log("id")
-  }
-}*/
-
-/*var data = [
-  {
-    id: 1,
-    email: 'ddj@hotmail.com',
-    password: '123',
-    name: 'Daan de Jong',
-    gender: 'Male',
-    age: '26',
-    location: 'Amsterdam',
-    ampm: 'Avondmens',
-    career: 'Commerciële economie HvA',
-    work: 'ABN AMRO',
-    bio: 'Koken, Concerten, Mexicaanses eten & Netflix',
-    description: 'Astronomy, reading, coffee-shop people watching, playing make believe with my nephew, eating out on Monday nights, and staying inside on rainy days. Just a few of the thing that make me happy. Maybe you can help add to the list :) ',
-    match: 'Women',
-    minAge: '22',
-    maxAge: '26',
-    interests: 'Spontaan en goed gevoel voor humor',
-    km: '40',
-    b1: 'Skydiven',
-    b2: 'Bali',
-    b3: 'Nieuwe opleiding',
-    b4: 'Kookcursus volgen',
-    b5: 'Duiken'
-  },
-  {
-    id: 2,
-    email: 'nj@hotmail.com',
-    password: '123',
-    name: 'Noa Jansen',
-    gender: 'Female',
-    age: '28',
-    location: 'Amsterdam',
-    ampm: 'Avondmens',
-    career: 'Commerciële economie HvA',
-    work: 'ABN AMRO',
-    bio: 'Koken, Concerten, Mexicaanses eten & Netflix',
-    description: 'Astronomy, reading, coffee-shop people watching, playing make believe with my nephew, eating out on Monday nights, and staying inside on rainy days. Just a few of the thing that make me happy. Maybe you can help add to the list :) ',
-    match: 'Men',
-    minAge: '26',
-    maxAge: '34',
-    interests: 'Spontaan en goed gevoel voor humor',
-    km: '40',
-    b1: 'Skydiven',
-    b2: 'Bali',
-    b3: 'Nieuwe opleiding',
-    b4: 'Kookcursus volgen',
-    b5: 'Duiken',
-    b6: 'Eten in een sterrenrestaurant'
-  }
-]*/
