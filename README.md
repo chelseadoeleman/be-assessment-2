@@ -17,7 +17,7 @@ User can sign up by filling out a form, which contains questions about themselve
 
 #### Matches
 ![image](/pictures/Matches.png)
-
+![image](/pictures/Match.png)
 Show all the other users who can be a potential match for the user. Find out what other items they have on their bucket list and more information about them.
 
 When you both have a match go chat with each other!
