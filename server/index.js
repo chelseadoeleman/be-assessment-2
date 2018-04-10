@@ -353,7 +353,7 @@ function messages(request, response) {
 function notFound(error, request, response, next) {
   if (error) {
     console.error(error)
-    // console.log('Hier komen errors terecht van next(error)')
+    console.log('Hier komen errors terecht van next(error)')
     response.redirect('/')
   } else {
     // Proceed tot httpErrors

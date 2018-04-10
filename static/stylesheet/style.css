@@ -140,4 +140,25 @@ article p{
 footer{
   background-color: #002C59;
   margin: -.5em;
+  padding-bottom: 5em;
+}
+
+footer h2{
+  margin-top: 3.5em;
+  margin-bottom: 2.5em;
+}
+
+footer a{
+  text-decoration: none;
+  background-color: #D81515;
+  border-style: none;
+  border-radius: 0.75rem;
+  padding: 1em;
+  margin: 0.5em 7em;
+  max-width: 100%;
+  margin-bottom: 10em;
+  font-family: "futura";
+  font-size: 1em;
+  color: #ffffff;
+  cursor: pointer;
 }
