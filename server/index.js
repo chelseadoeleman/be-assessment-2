@@ -40,7 +40,9 @@ module.exports = express()
   .get('/messages', messages)
   .get('/signUpForm', signUpForm)
   .get('/:id', match)
-  .get('/remove',remove)
+
+  // DELETE
+  .delete('/remove/:id',remove)
 
   // POST
   .post('/login', login)
@@ -71,6 +73,7 @@ function all(request, response) {
   }
 }
 
+// Sessions made with help from Maikel van Veen TECH_1
 // User data will be checked in the database. When succesfull the user can log in.
 function login(request, response, next) {
   // Email will be set to lowercase
@@ -279,7 +282,8 @@ function match(request, response, next) {
 function profile(request, response) {
   // Check if the user is logged in
   if (request.session.user) {
-    response.render('profile.ejs')
+    var data = {_id: request.session.user._id}
+    response.render('profile.ejs', {data: data})
   } else {
     // User is not logged in, show error
     request.session.error = {title: 'Creditentials required'}
@@ -289,19 +293,21 @@ function profile(request, response) {
   }
 }
 
+// Remove function with help from Maikel van Veen TECH_1
 // Remove user profile
 function remove(request, response, next) {
+  // Checks if the user is logged in
   var id = request.params.id
+  console.log(id)
 
-  db.collection('match').deleteOne({_id: mongo.ObjectID(id)
-  }, done)
+  db.collection('match').deleteOne({_id: mongo.ObjectID(id)}, done)
 
   function done(error) {
     if (error) {
+      response.status(500).json({error: 'Mistakes were made'})
       next(error)
     } else {
-      console.log('removed')
-      response.json({status: 'ok'})
+      response.status(200).json({status: 'ok'})
     }
   }
 }
@@ -348,8 +354,15 @@ function messages(request, response) {
   }
 }
 
+// Error handlers with help from Maikel van Veen TECH_1
 // When an error occurs in a function, proceed to function notFound
-function notFound(error, request, response, next) {
+function notFound(request, response, next) {
+  console.log('Niet bestaande route, render 404 pagina')
+  response.redirect('/')
+}
+
+// Page not found respond with 404
+function httpErrors(error, request, response, next) {
   if (error) {
     console.error(error)
     console.log('Hier komen errors terecht van next(error)')
@@ -358,10 +371,4 @@ function notFound(error, request, response, next) {
     // Proceed tot httpErrors
     next()
   }
-}
-
-// Page not found respond with 404
-function httpErrors(request, response, next) {
-  console.log('Niet bestaande route, render 404 pagina')
-  response.redirect('/')
 }

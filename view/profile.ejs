@@ -33,7 +33,10 @@
       <a href="/messages"><img src="images/text.png" alt="Berichten"></a>
     </header>
     <main>
-      <a href="/remove">Verwijder account</a>
+      <% if (data) { %>
+        <a id="remove" href="/remove/<%= data._id %>">Verwijder account</a>
+      <% } %>
     </main>
+    <script type="text/javascript" src="/index.js"></script>
   </body>
 </html>
