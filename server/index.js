@@ -249,9 +249,7 @@ function match(request, response, next) {
     var id = request.params.id
 
     // Look for the requested id of the user-detail page in the database
-    db.collection('match').findOne({
-      _id: mongo.ObjectID(id)
-    }, done)
+    db.collection('match').findOne({_id: mongo.ObjectID(id)}, done)
 
     function done(error, data) {
       // Error occurs go to Error handlers
@@ -262,9 +260,10 @@ function match(request, response, next) {
         response.render('detail.ejs', {data: data})
       } else {
         // Show error from customError via Error handlers
-        // response.status(401).send('Credentials required')
+        request.session.error = {title: 'Creditentials required'}
         var customError = new Error('Creditentials required')
         next(customError)
+        response.status(401).send('Credentials required')
       }
     }
   } else {
