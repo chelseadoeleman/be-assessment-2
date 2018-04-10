@@ -35,7 +35,7 @@
     <% if (data) { %>
       <main>
         <a href="/matches"><img src="images/back.png" alt="Terug"></a>
-        <img src="images/nr1.png" alt="profile picture">
+        <img src="/upload/<%= data.imageUrl %>" alt="profile picture">
         <h2><%= data.name%></h2>
         <ul>
           <li><b><%= data.age %> jaar</b></li>

@@ -5,8 +5,12 @@ console.log('restart server')
 
 require('dotenv').config()
 var argon2 = require('argon2')
+var fs = require('fs')
+var multer = require ('multer')
+var upload = multer({dest: 'static/upload/'})
 var session = require('express-session')
 var express = require('express')
+var path = require('path')
 var bodyParser = require('body-parser')
 var ejs = require('ejs')
 var mongo = require('mongodb')
@@ -46,7 +50,7 @@ module.exports = express()
 
   // POST
   .post('/login', login)
-  .post('/signUp', signUp)
+  .post('/signUp', upload.single('profileImage'), signUp)
 
   // Error handlers
   .use(notFound)
@@ -167,8 +171,22 @@ function signUp(request, response, next) {
       // Hash password and go to funciton onhash
       argon2.hash(password).then(onhash, next)
 
+      // Maikel van Veen TECH_1
       // Send data from form to database
       function onhash(hash) {
+        var fileName = null
+
+        if (request.file && request.file.filename) {
+          // Filesystem looks up request.file.filename rename + .png
+          fs.rename(path.join(__dirname, '../static/upload/' + request.file.filename), path.join(__dirname, '../static/upload/' + request.file.filename + '.png'), function(error) {
+            if (error) {
+              next(error)
+            } else {
+              fileName = request.file.filename + '.png'
+            }
+          })
+        }
+
         db.collection('match').insertOne({
           email: request.body.email,
           password: hash, // password is hashed before it will be stored in the database
@@ -185,7 +203,8 @@ function signUp(request, response, next) {
           minAge: request.body.minAge,
           maxAge: request.body.maxAge,
           interests: request.body.interests,
-          km: request.body.km
+          km: request.body.km,
+          imageUrl: fileName
           // bucketlist:request.body.bucketlist
         }, done) //When data is succesfully inserted in the databse proceed to function done
 
@@ -296,17 +315,18 @@ function profile(request, response) {
 // Remove function with help from Maikel van Veen TECH_1
 // Remove user profile
 function remove(request, response, next) {
-  // Checks if the user is logged in
+  // User id comes from fetch remove/
   var id = request.params.id
-  console.log(id)
 
   db.collection('match').deleteOne({_id: mongo.ObjectID(id)}, done)
 
   function done(error) {
     if (error) {
+      // Internal server error
       response.status(500).json({error: 'Mistakes were made'})
       next(error)
     } else {
+      // Delete was succesfull
       response.status(200).json({status: 'ok'})
     }
   }
