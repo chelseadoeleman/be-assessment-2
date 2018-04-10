@@ -5,17 +5,18 @@ A dating application where users will be matched by their own bucket lists, so t
 ## The application
 
 #### Home
-![image]()
+![image](/pictures/Home.png)
+![image](/pictures/Login.png)
 
 The homepage contains information about the application and how it works. Users will be matched via their bucket lists. When there are a few similarities between two users, they can be matched. When scrolling to the bottom the user can login or sign up.
 
 #### Sign up
-![image]()
-
+![image](/pictures/Register.png)
+![image](/pictures/Matchpreferences.png)
 User can sign up by filling out a form, which contains questions about themselves. Then the user will proceed to fill out the form, where there will be questions asked about their perfect match. And of course the most important part: filling in their bucket list, so they can be properly matched.
 
 #### Matches
-![image]()
+![image](/pictures/Matches.png)
 
 Show all the other users who can be a potential match for the user. Find out what other items they have on their bucket list and more information about them.
 
