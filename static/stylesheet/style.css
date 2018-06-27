@@ -46,7 +46,7 @@ label{
 }
 input {
     display: block;
-    background-color: #002C59;
+    background-color: rgba(65, 140, 216, 0);
     padding: 0.2em;
     border-radius: .5rem;
     border-style: solid;
@@ -138,8 +138,15 @@ article p{
 }
 
 footer{
-  background-color: #002C59;
+  background: url('/images/background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
   margin: -.5em;
+  padding-bottom: -5em;
+}
+
+footer div{
+  background-color: rgba(65, 140, 216, 0.70);
   padding-bottom: 5em;
 }
 

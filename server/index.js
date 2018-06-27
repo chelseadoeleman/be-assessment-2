@@ -1,7 +1,7 @@
 'use strict'
 
 // Check if the server has restarted
-console.log('restart server')
+console.log('restart server on port 1902')
 
 require('dotenv').config()
 var argon2 = require('argon2')

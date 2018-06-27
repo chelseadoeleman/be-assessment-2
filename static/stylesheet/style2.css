@@ -2,12 +2,19 @@
   box-sizing: border-box;
 }
 html{
-background-color: #002C59;
+background: url('/images/background3.jpg');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+background-attachment: fixed;
 }
 
 body{
+background-color: rgba(65, 140, 216, 0.7);
 font-family: "Futura";
 line-height: 1.5em;
+margin:0;
+padding-bottom: 1.5em;
 }
 
 header{
@@ -193,6 +200,7 @@ h2{
 font-family: "futura";
 color: #db0d15;
 text-align: center;
+margin-top: 0;
 }
 
 form button{
@@ -242,17 +250,18 @@ section{
 section article{
   border-style: solid;
   border-width: thin;
-  border-color: #ffffff;
+  border-color: #D81515 /*#418CD8*/;
   border-radius: 0.75rem;
   padding: 1em;
   margin: 1em 0;
-  background-color: #418CD8;
+  background-color: #ffffff;
 }
 
 section article img{
   max-width: 100%;
-  max-height: 10em;
-  margin-left: 4.5em;
+  max-height: 8em;
+  margin-left: 6em;
+  border-color: #D81515;
 }
 
 section article button{
@@ -284,8 +293,9 @@ section article h5{
 
 section article p{
   text-align: center;
-  font-size: 0.9em;
+  font-size: 0.8em;
   margin-top: -1.5em;
+  color: #418CD8;
 }
 
 section article a:nth-child(2n+6) button{
@@ -299,6 +309,12 @@ section article a:nth-child(2n+6) button{
   font-size: 1em;
   color: #D81515;
   cursor: pointer;
+}
+
+article ul li{
+  font-size: 0.8em;
+  line-height: 1em;
+  margin-top: 1em;
 }
 
 ol li button{

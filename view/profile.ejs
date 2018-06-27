@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
+    <% if (data) { %>
     <header>
       <nav>
           <label for="toggle">&#9776;</label>
@@ -16,7 +17,7 @@
               <a href="/matches">Matches</a>
             </li>
             <li>
-              <a href="/profile">Profiel</a>
+              <a href="/profile">Profiel <%= data.name %></a>
             </li>
             <li>
               <a href="/results">Test resultaten</a>
@@ -33,10 +34,9 @@
       <a href="/messages"><img src="images/text.png" alt="Berichten"></a>
     </header>
     <main>
-      <% if (data) { %>
-        <a id="remove" href="/remove/<%= data._id %>">Verwijder account</a>
-      <% } %>
+      <a id="remove" href="/remove/<%= data._id %>">Verwijder account</a>
     </main>
     <script type="text/javascript" src="/index.js"></script>
+    <% } %>
   </body>
 </html>
